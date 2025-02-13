@@ -2,51 +2,40 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] private InputControl m_InputControl;
-    [SerializeField] private CharacterController m_CharacterController;
-    [SerializeField] private float m_MoveSpeed;
-    [SerializeField] private float m_JumpSpeed;
+    public bool IsGround => isGround;
 
+    [SerializeField] private CharacterController m_CharacterController;    
+
+    private bool isGround;
     private Vector3 movementDirection;
-    private Vector2 inputDirection;
 
-    
-
-    void Update()
+    public void GroundCheck()
     {
-        DirectionUpdate();
-        Jump();
-        ApplyGravity();
-        Move();
-    }   
-
-    private void DirectionUpdate()
-    {
-        if (m_InputControl == null) return;
-
-        inputDirection = m_InputControl.InputDirection.normalized;
-
-        movementDirection.x = inputDirection.x * m_MoveSpeed;
-        movementDirection.z = inputDirection.y * m_MoveSpeed;
-    }
-    private void Jump()
-    {
-        if (m_InputControl == null) return;
-
-        if (m_CharacterController.isGrounded)
+        isGround = m_CharacterController.isGrounded;
+        if (isGround)
         {
-            if (m_InputControl.IsJump)
-            {
-                movementDirection.y = m_JumpSpeed;
-            }
+            movementDirection.y = -0.1f;
         }
     }
-    private void ApplyGravity()
+
+    public void DirectionUpdate(Vector2 inputDirection, float moveSpeed)
     {
-        movementDirection += Physics.gravity * Time.deltaTime;
+
+        inputDirection = inputDirection.normalized;
+
+        movementDirection.x = inputDirection.x * moveSpeed;
+        movementDirection.z = inputDirection.y * moveSpeed;
     }
-    private void Move()
+    public void Jump(float jumpSpeed)    
+    {                       
+        movementDirection.y = jumpSpeed;    
+    }
+    public void ApplyGravity()
     {
+        movementDirection += Physics.gravity * Time.deltaTime;        
+    }
+    public void Move()
+    {     
         movementDirection = transform.TransformDirection(movementDirection);
         m_CharacterController.Move(movementDirection * Time.deltaTime);
     }

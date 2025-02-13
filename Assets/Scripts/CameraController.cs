@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     private Vector3 finalPosition;
     private RaycastHit hit;
     private float distanceToHit;
+    private float currentDistance;
     private float targetDistance;
 
     private void LateUpdate()
@@ -36,7 +37,7 @@ public class CameraController : MonoBehaviour
         if (m_InputControl == null) return;
 
         deltaRotationX += m_InputControl.DeltaRotation.x * m_Sensitivity;
-        deltaRotationY += m_InputControl.DeltaRotation.y * m_Sensitivity;
+        deltaRotationY -= m_InputControl.DeltaRotation.y * m_Sensitivity;
 
         deltaRotationY = ClampAngle(deltaRotationY, m_MinLimitY, m_MaxLimitY);
         finalRotation = Quaternion.Euler(deltaRotationY, deltaRotationX, 0);
@@ -58,7 +59,10 @@ public class CameraController : MonoBehaviour
                 targetDistance  = distanceToHit - m_DistanceOffsetFromCollisionHit;
             }
         }
+        currentDistance = Mathf.MoveTowards(currentDistance, targetDistance, Time.deltaTime * m_DistanceLerpRate);
+        currentDistance = Mathf.Clamp(currentDistance, m_MinDistance, m_Distance);
 
+        finalPosition = m_Target.position - (finalRotation * Vector3.forward * currentDistance);
         transform.position = finalPosition;
         transform.position += m_Offset;
     }
