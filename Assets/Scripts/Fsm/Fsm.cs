@@ -7,7 +7,7 @@ public class Fsm
     private FsmState currentState;
 
     public void AddState(FsmState state)
-    {
+    {        
         states.Add(state.GetType(), state);
     }
 
@@ -15,16 +15,20 @@ public class Fsm
     {
         var type = typeof(T);
 
-        if (currentState.GetType() == type) return;
+        if (currentState != null)
+        {
+            if (currentState.GetType() == type) return;
+        }
+        
         
         if (states.TryGetValue(type, out var newState))
         {
             if (currentState != null)
             {
-                currentState.Exit();
-                currentState = newState;
-                currentState.Enter();
+                currentState.Exit();                
             }
+            currentState = newState;
+            currentState.Enter();
         }
 
     }

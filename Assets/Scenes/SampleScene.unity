@@ -1881,12 +1881,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1799018343}
   - component: {fileID: 1799018342}
+  - component: {fileID: 1799018349}
   - component: {fileID: 1799018341}
   - component: {fileID: 1799018344}
   - component: {fileID: 1799018345}
   - component: {fileID: 1799018346}
   - component: {fileID: 1799018348}
-  - component: {fileID: 1799018347}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1992,18 +1992,6 @@ MonoBehaviour:
   m_TargetTransform: {fileID: 1919853681}
   m_Camera: {fileID: 963194228}
   m_InputControl: {fileID: 1799018344}
---- !u!114 &1799018347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799018340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3afe682c08bdab249bcf2c61bd552761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1799018348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2017,8 +2005,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 1919853682}
-  m_InputControl: {fileID: 1799018344}
+--- !u!114 &1799018349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799018340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30013d584fb2932409b38e23ff5cc434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveSpeed: 8
+  m_JumpSpeed: 12
   m_MovementController: {fileID: 1799018341}
+  m_InputControl: {fileID: 1799018344}
+  m_AnimationController: {fileID: 1799018348}
 --- !u!1001 &1810218974
 PrefabInstance:
   m_ObjectHideFlags: 0
